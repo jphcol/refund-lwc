@@ -1,0 +1,40 @@
+.container {
+  padding: 20px;
+}
+
+.input-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 10px;
+}
+
+.column {
+  flex: 1;
+}
+
+.success-message {
+  color: green;
+  font-weight: bold;
+  font-size: 36px;
+  margin: 10px;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  font-size: 36px;
+  margin: 10px;
+}
+
+.hold-message {
+  color: rgb(255, 174, 0);
+  font-weight: bold;
+  font-size: 36px;
+  margin: 10px;
+}
+
+.shortlists {
+  font-size: 14px;
+}

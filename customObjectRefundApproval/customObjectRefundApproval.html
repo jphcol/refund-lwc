@@ -1,0 +1,62 @@
+<template>
+  <div class="container">
+    <lightning-card title="Refund Approval">
+      <div class="input-section">
+        <div class="column">
+          <div class="current-refunds-approved">
+            <p class="shortlists"><strong>Total Refunds Approved:</strong> {refundsCount}</p>
+          </div>
+
+          <lightning-input type="number" label="Shortlists requested" value={shortlistsRequested}
+            onchange={handleShortlistsRequestedChange} required>
+          </lightning-input>
+          <!-- Error message for the required field -->
+          <div class="slds-form-element__help" if:true={showShortlistsRequestedError}>This field is required.</div>
+
+          <lightning-input type="number" label="Total sum £" value={totalSum} onchange={handleTotalSumChange}
+            required>
+          </lightning-input>
+          <!-- Error message for the required field -->
+          <div class="slds-form-element__help" if:true={showTotalSumError}>This field is required.</div>
+        </div>
+
+        <div class="column">
+          <lightning-input type="number" label="Shortlists Year to date" value={shortlistCount}
+            onchange={handleShortlistCountChange} required>
+          </lightning-input>
+          <!-- Error message for the required field -->
+          <div class="slds-form-element__help" if:true={showShortlistCountError}>This field is required.</div>
+
+          <lightning-input type="date" label="Date first ATI" value={firstAtiDate} onchange={handleFirstAtiDateChange}
+            required>
+          </lightning-input>
+          <!-- Error message for the required field -->
+          <div class="slds-form-element__help" if:true={showFirstAtiDateError}>This field is required.</div>
+        </div>
+      </div>
+
+      <div class="input-section">
+        <lightning-button label="Calculate" variant="brand" onclick={handleCalculate}></lightning-button>
+      </div>
+
+      <template if:true={showResult}>
+        <div class={resultStyle}>{resultMessage}</div>
+        <div class={resultStyle}>{resultReason}</div>
+        <div  class="finalise-fields">
+          <p><strong>Case Type:</strong> {caseType}</p>
+          <p><strong>Refund Approved:</strong> {refundApproved}</p>
+          <p><strong>Refund Decision Outcome:</strong> {refundDecisionOutcome}</p>
+          <p><strong>Refund Decision Reason:</strong> {refundDecisionReason}</p>
+          <p><strong>Refund SLs Requested:</strong> {shortlistsRequested}</p>
+          <lightning-input if:true={refundApproved} type="number" label="Total refunded £" value={amountRefunded} onchange={handleAmountRefundedChange}></lightning-input>
+          <lightning-input if:true={refundApproved} type="number" label="Shortlists refunded: " value={refundsApproved} onchange={handleRefundsApprovedChange}></lightning-input>
+          <lightning-input type="text" label="Notes: " value={refundNotes} onchange={handleRefundNotesChange}></lightning-input>
+          <div class="input-section">
+            <lightning-button label="Update Case" variant="brand" onclick={handleUpdateCase}></lightning-button>
+          </div>
+        </div>
+        </template>
+      </lightning-card>
+  </div>
+</template>
+
