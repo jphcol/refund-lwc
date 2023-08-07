@@ -127,14 +127,13 @@ export default class CustomObjectRefundApproval extends LightningElement {
 
 
     handleCalculate() {
-      console.log('Account Record Data:', this.accountRecord.data);
         // Check if any required fields are empty
         this.showShortlistsRequestedError = this.shortlistsRequested === 0;
         this.showTotalSumError = this.totalSum === 0;
         this.showShortlistCountError = this.shortlistCount === 0;
         this.showFirstAtiDateError = !this.firstAtiDate;
 
-        // If any required fields are empty, stop the calculation
+        // Stop if any required fields are empty
         if (
             this.showShortlistsRequestedError ||
             this.showTotalSumError ||
@@ -145,10 +144,8 @@ export default class CustomObjectRefundApproval extends LightningElement {
             return;
         }
 
-        // Get the refundRequestCount from the related Account record
+        // Ratio
         const refundRequestCount = getFieldValue(this.accountRecord.data, REFUNDS_APPROVED_COUNT);
-
-        // Calculate the ratio
         const ratio = refundRequestCount === 0 ? 0 : refundRequestCount / this.shortlistCount;
         const ratioRounded = Math.round((ratio + Number.EPSILON) * 100) / 100;
 
@@ -158,6 +155,7 @@ export default class CustomObjectRefundApproval extends LightningElement {
         const daysDifference = Math.floor((today - atiDate) / (1000 * 60 * 60 * 24));
         const inexperienced = daysDifference < EXPERIENCE_DAYS || (daysDifference < 366 && this.shortlistCount < EXPERIENCE_SHORTLISTS);
 
+        // Main logic
         if (this.shortlistsRequested < MAX_SHORTLISTS) {
             if (inexperienced) {
                 if (this.totalSum <= MAX_FEE) {
